@@ -2,7 +2,7 @@
 /* Design Variables - Easily customize colors from here */
 :root {
     --gov-primary: #d9e9fc;     /* Deep Trustworthy Blue */
-    --gov-secondary: #02080e;   /* Slate/Mid-Tone Blue */
+    --gov-secondary: #d9e9fc;   /* Slate/Mid-Tone Blue */
     --gov-accent: #FFC93C;      /* Elegant Gold Accent for Headings */
     --text-light: #FFFFFF;
     --text-muted: #D1D5DB;      /* Soft Light Gray for Links */
