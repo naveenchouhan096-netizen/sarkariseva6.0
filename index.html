@@ -10,6 +10,7 @@
 
     <!-- CSS Links -->
      <link rel="stylesheet" href="css/home.css">
+     <link rel="stylesheet" href="css/hero.css">
 </head>
 <body>
 
@@ -92,12 +93,90 @@
 
     </header>
 
-    <!-- Hero Section will go here next -->
+    <section class="hero">
+
+        <div class="overlay"></div>
+
+        <div class="hero-left">
+
+            <p class="badge">
+                🇮🇳 Government Services Portal
+            </p>
+
+            <h1>
+                Find Every <span>Government Service</span>
+                in One Place
+            </h1>
+
+            <p class="description">
+                Search official government websites, application guides, eligibility, fees and documents from one modern platform.
+            </p>
+
+            <div class="search-box">
+                <input type="text" placeholder="Search Passport, Aadhaar, IRCTC...">
+                <button>Search</button>
+            </div>
+
+            <div class="popular">
+                <span>Popular :</span>
+                <a href="#">Passport</a>
+                <a href="#">PAN Card</a>
+                <a href="#">IRCTC</a>
+                <a href="#">EPFO</a>
+                <a href="#">Driving Licence</a>
+            </div>
+
+            <div class="buttons">
+                <button class="primary">Explore Services</button>
+                <button class="secondary">Learn More</button>
+            </div>
+
+        </div>
+
+        <div class="hero-right">
+
+            <div class="card card1">
+                🚆
+                <p>Train Booking</p>
+            </div>
+
+            <div class="card card2">
+                ✈
+                <p>Flight</p>
+            </div>
+
+            <div class="card card3">
+                🪪
+                <p>Aadhaar</p>
+            </div>
+
+            <div class="card card4">
+                📄
+                <p>Passport</p>
+            </div>
+
+            <div class="card card5">
+                💳
+                <p>PAN Card</p>
+            </div>
+
+            <div class="circle one"></div>
+            <div class="circle two"></div>
+            <div class="circle three"></div>
+
+        </div>
+
+    </section>
     
     <!-- Footer Section will go here next -->
 
     <!-- JavaScript files -->
+    <!-- 1. GSAP Library (Must come first) -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    
+    <!-- 2. Your custom scripts -->
     <script src="js/home.js"></script>
+    <script src="js/hero.js"></script>
 
 </body>
 </html>
