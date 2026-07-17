@@ -1,192 +1,141 @@
-
-
-
-/* Design Variables - Easily customize colors from here */
-:root {
-    --gov-primary: #010a13;     /* Deep Trustworthy Blue */
-    --gov-secondary: #02080e;   /* Slate/Mid-Tone Blue */
-    --gov-accent: #FFC93C;      /* Elegant Gold Accent for Headings */
-    --text-light: #FFFFFF;
-    --text-muted: #D1D5DB;      /* Soft Light Gray for Links */
-    --bottom-bg: #051424;       /* Darker Blue for Copyright section */
-}
-
-/* Main Footer Container */
+/* --- Footer Base Styling --- */
 .gov-footer {
-    background-color: var(--gov-primary);
-    color: var(--text-light);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
-    line-height: 1.6;
-    width: 100%;
+  background-color: #030a16; /* Dark background as in screenshot */
+  color: #ffffff;
+  padding: 40px 20px 20px 20px;
+  font-family: sans-serif;
+  box-sizing: border-box;
 }
 
-/* Shared Container Layout */
-.footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    box-sizing: border-box;
+.gov-footer *, 
+.gov-footer *::before, 
+.gov-footer *::after {
+  box-sizing: border-box;
 }
 
-/* Flex Row for Columns */
+.gov-footer .footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
 .footer-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 60px; /* Space between columns */
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* responsive and no overlap */
+  gap: 30px;
 }
 
-/* Individual Column Styling */
 .footer-col {
-    flex: 1;
-    min-width: 200px;
+  flex: 1;
+  min-width: 250px;
 }
 
-/* Section Headings (Quick Links / Quick Support) */
 .footer-col h3 {
-    color: var(--gov-accent);
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 2px solid var(--gov-secondary);
-    padding-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  color: #ffcc00; /* Yellow headings */
+  font-size: 16px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-/* Navigation Lists */
+/* --- Links Styling & Smooth Hover --- */
 .footer-col ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-col ul li {
-    margin-bottom: 12px;
+  margin-bottom: 15px;
 }
 
-/* Link Anchors with Hover Effects */
 .footer-col ul li a {
-    color: var(--text-muted);
-    text-decoration: none;
-    display: inline-block;
-    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-}
-
-.footer-col ul li a:hover {
-    color: var(--text-light);
-    text-decoration: underline;
-    transform: translateX(3px); /* Subtle shift effect on hover */
-}
-
-/* 
-   Bottom Copyright Section
-    */
-.footer-bottom {
-    background-color: var(--bottom-bg);
-    border-top: 1px solid var(--gov-secondary);
-}
-
-/* Targets the container specifically inside the bottom bar */
-.footer-bottom .footer-container {
-    padding: 20px;
-}
-
- .bottom-flex {          /* ye all right reservd wala portion hai */
-    display: flex;
-    justify-content: center;  
-    align-items: center;
-    text-align: center;       
-    width: 100%;       
-}
- #live-clock {
-    position: absolute;
-    right: 20px;               /* Isse clock right side chipak jayega */
-    margin: 0;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-.bottom-flex p {
-    margin: 0;
-    font-size: 13px;
-    color: var(--text-muted);
-    letter-spacing: 0.3px;
-}
-
-/* 
-   Responsive Media Queries (Mobile Friendly)
-    */
-@media (max-width: 768px) {
-    .footer-container {
-        padding: 30px 20px;
-    }
-    
-    .footer-row {
-        flex-direction: column;
-        gap: 30px; /* Reduces space on smaller screens */
-    }
-
-    .footer-col h3 {
-        margin-bottom: 15px;
-    }
-
-    .bottom-flex {
-        text-align: center;
-        justify-content: center;
-    }
-}
-
-        /* yaha se footer ka social media link ka css start ho raha hai */
-
-        
-  footer {
-  background-color: #1a1a1a; /* Dark background typical for footers */
-  padding: 20px;
-  display: flex;
-  justify-content: center;
+  color: #ffffff;
+  text-decoration: none;
+  display: inline-flex;
   align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
+/* Link Hover Animation */
+.footer-col ul li a:hover {
+  color: #3ec3c5; /* Aqua/cyan shift on hover */
+  transform: translateX(8px); /* Smooth slide right, no overlap */
+}
+
+/* --- Social Icons Layout --- */
 .footer-social-container {
   display: flex;
-  gap: 20px; /* Space between icons */
+  gap: 15px;
 }
 
 .social-icon {
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: #2d2d2d;
+  width: 40px;
+  height: 40px;
+  background-color: #1f2633; /* Dark grey circular background */
   color: #ffffff;
-  font-size: 20px;
+  border-radius: 50%;
   text-decoration: none;
-  transition: all 0.3s ease;
+  font-size: 18px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
-/* Hover Effects with Brand Colors */
-.social-icon:hover {
-  transform: translateY(-5px); /* Subtle lift effect */
-  color: #fff;
-}
-
-.social-icon.github:hover {
-  background-color: #333;
+/* --- Individual Brand Color Hover Animations --- */
+.social-icon.facebook:hover {
+  background-color: #1877F2;
+  color: #ffffff;
+  transform: scale(1.15);
 }
 
 .social-icon.linkedin:hover {
-  background-color: #0077b5;
+  background-color: #0A66C2;
+  color: #ffffff;
+  transform: scale(1.15);
 }
 
 .social-icon.twitter:hover {
-  background-color: #000000; /* X / Twitter black */
+  background-color: #000000;
+  color: #ffffff;
+  transform: scale(1.15);
+  border: 1px solid #333;
 }
 
 .social-icon.instagram:hover {
-  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  background: linear-gradient(45deg, #F9CE34 0%, #EE2A7B 50%, #6228d7 100%);
+  color: #ffffff;
+  transform: scale(1.15);
+}
+
+/* --- Bottom Copyright Bar & Live Clock --- */
+.footer-bottom {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #101929;
+}
+
+.bottom-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 14px;
+  color: #a0aec0;
+}
+
+#live-clock {
+  font-size: 13px;
+  color: #a0aec0;
+  font-weight: 500;
 }

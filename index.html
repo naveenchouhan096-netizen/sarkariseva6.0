@@ -22,9 +22,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/hero1.css">
     <link rel="stylesheet" href="css/home.css">
+
     <link rel="stylesheet" href="css/hero2.css">
     <link rel="stylesheet" href="css/hero3.css">
 <link rel="stylesheet" href="css/hero4.css">
+
+    <link rel="stylesheet" href="css/footer.css">
+
 </head>
 <body>
 
@@ -83,7 +87,7 @@
     </li>
 
     <li>
-        <a href="pages/about-us.html">
+        <a href="pages/about.html">
             <i class="fa-solid fa-circle-info"></i>
             About Us
         </a>
@@ -790,6 +794,7 @@
 
     </section>
 
+
     
 
     
@@ -797,24 +802,30 @@
 
         <!-- yaha se footer waha section start hai -->
   <!-- Font Awesome CDN Link (Icons chalane ke liye zaroori hai) -->
+
+    <!-- HERO-SECTION END! -->
+  
+<!-- FontAwesome for Icons -->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="css/footer.css">
+
 <footer class="gov-footer">
     <div class="footer-container">
         <div class="footer-row">
 
-            <!--  Quick Links -->
+            <!-- Quick Links -->
             <div class="footer-col">
                 <h3>Quick Links</h3>
                 <ul>
                     <li><a href="#"><i class="fas fa-home"></i>Home</a></li>
                     <li><a href="#"><i class="fa-solid fa-circle-info"></i>About Us</a></li>
                     <li><a href="#"><i class="fa-solid fa-layer-group"></i>Schemes & Services</a></li>
-                    <li><a href="#"><i class="fa-solid fa-chart-line"></i>Transforming India</a></li>
+                    <li><a href="central-services.html"><i class="fa-solid fa-building-columns"></i>central-services</a></li>
+                    <li><a href="state-services.html"><i class="fa-solid fa-map-location-dot"></i>state-services</a></li>
                 </ul>
             </div>
 
-            <!-- important links  -->
+            <!-- Quick Support -->
             <div class="footer-col">
                 <h3>Quick Support</h3>
                 <ul>
@@ -825,69 +836,37 @@
                 </ul>
             </div>
 
+            <!-- Social Media Links (Fixed HTML tags here) -->
             <div class="footer-col">
                 <h3>Social Media Links</h3>
                 <div class="footer-social-container">
-<!-- yaha se change hua hai -->
-                    
-    <a href="#" class="social-icon github" target="_blank" aria-label="GitHub">
-      <i class="fab fa-github"></i>
-    </a>
-    <a href="#" class="social-icon linkedin" target="_blank" aria-label="LinkedIn">
-      <i class="fab fa-linkedin-in"></i>
-    </a>
-    <a href="#" class="social-icon twitter" target="_blank" aria-label="Twitter">
-      <i class="fab fa-x-twitter"></i>
-    </a>
-    <a href="#" class="social-icon instagram" target="_blank" aria-label="Instagram">
-      <i class="fab fa-instagram"></i>
-    </a>
-  </div>
-        <!-- yaha tak hua hai             -->
-  </div>
+                    <a href="#" class="social-icon facebook" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon linkedin" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-icon twitter" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon instagram" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
             </div>
         
         </div>
     </div>
 
-    <!-- copyright wala section hai -->
+    <!-- Copyright Section -->
     <div class="footer-bottom">
         <div class="footer-container bottom-flex">
-           <p style="text-align: center;">&copy; 2026 Govt. of India. All rights reserved.</p>
-           <p id="live-clock" style="font-size: 13px; color: var(--text-muted); margin: 5px 0 0 0; text-align: right; font-weight: 500;"></p>
+           <p>&copy; 2026 Govt. of India. All rights reserved.</p>
+           <p id="live-clock"></p>
         </div>
     </div>
 </footer>
-<!-- Live Clock Script --> 
-<script>
-    function updateClock() {
-        const now = new Date();
-        
-        const options = { 
-            year: 'numeric', 
-            month: 'numeric', 
-            day: 'numeric', 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit', 
-            hour12: true 
-        };
-        
-        // Formats time perfectly (e.g., 10 July 2026, 05:37:15 PM)
-        const formattedTime = now.toLocaleString('en-IN', options);
-        
-        // Updates the HTML element
-        document.getElementById('live-clock').innerHTML = `<i class="fa-regular  style="color: var(--gov-accent); margin-right: 6px;"></i> ${formattedTime}`;
-    }
 
-    // Refresh clock every 1 second
-    setInterval(updateClock, 1000);
-    
-    // Initial call to load immediately
-    updateClock();
-</script>
-
-   
     <!-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script> -->
     
     <!-- 2. Your custom scripts -->
