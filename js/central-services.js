@@ -92,6 +92,26 @@ const clearBtn = document.getElementById('clear-search');
             closeModal();
         }
     }
+
+    // Scroll to Top Logic
+    const topBtn = document.getElementById("scrollToTop");
+
+    // Show button when user scrolls down 300px
+    window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
+    };
+
+    // Scroll back to the top when clicked
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Adds the smooth scrolling animation
+        });
+    });
 });
 
 // 4. RENDER THE CARDS
