@@ -352,3 +352,32 @@
     background-color: #0e4fcd;
     transform: scale(1.1);
 }
+
+.gov-logo-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    display: inline-block;
+}
+
+.gov-logo {
+    max-width: 580px; /* Increased size from 120px */
+    height: auto;
+    margin-bottom: 0px;
+
+    /* Stacks a horizontal fade and a vertical fade together */
+  mask-image: 
+    linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  
+  -webkit-mask-image: 
+    linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+
+  /* Required to make multiple masks blend together correctly */
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
