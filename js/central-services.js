@@ -59,6 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Search Bar icons logic
+const clearBtn = document.getElementById('clear-search');
+
+    // Show/Hide X icon based on input
+    searchInput.addEventListener('input', () => {
+        clearBtn.style.display = searchInput.value.length > 0 ? 'block' : 'none';
+    });
+
+    // Clear search when X is clicked
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        
+        // Dispatch event to trigger the existing search filter logic
+        searchInput.dispatchEvent(new Event('input'));
+        searchInput.focus();
+    });
+
     // Press 'Escape' to close modal
     document.addEventListener('keydown', (e) => {
         const modal = document.getElementById('service-modal');
@@ -188,3 +206,4 @@ function closeModal() {
     // Allow the background page to scroll again
     document.body.style.overflow = 'auto'; 
 }
+
