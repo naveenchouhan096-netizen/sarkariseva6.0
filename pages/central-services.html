@@ -8,11 +8,11 @@
     <!-- FontAwesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <!-- CSS Links (Note the ../ to go up one folder) -->
+    <!-- CSS Links (The ../ to go up one folder) -->
     <link rel="stylesheet" href="../css/home.css">
     <link rel="stylesheet" href="../css/footer.css">
     
-    <!-- We will create this new CSS file in the next phase -->
+    <!-- CSS file  -->
     <link rel="stylesheet" href="../css/central-services.css">
 </head>
 <body>
@@ -52,8 +52,10 @@
             <p>Browse and apply for nationwide official services.</p>
             
             <!-- Search bar specific to this page -->
-            <div class="page-search">
-                <input type="text" id="service-search" placeholder="Search Central Services...">
+            <div class="search-container">
+    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    <input type="text" id="service-search" placeholder="Search Central Services...">
+    <i class="fa-solid fa-xmark clear-icon" id="clear-search" style="display: none;"></i>
             </div>
         </div>
 
@@ -81,6 +83,11 @@
             </div>
         </div>
     </footer>
+
+    <!-- Scroll to top button -->
+<button id="scrollToTop" title="Go to top">
+    <i class="fa-solid fa-arrow-up"></i>
+</button>
 
     <!-- JavaScript files -->
     <script src="../js/home.js"></script>

@@ -59,6 +59,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Search Bar icons logic
+const clearBtn = document.getElementById('clear-search');
+
+    // Show/Hide X icon based on input
+    searchInput.addEventListener('input', () => {
+        clearBtn.style.display = searchInput.value.length > 0 ? 'block' : 'none';
+    });
+
+    // Clear search when X is clicked
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        
+        // Dispatch event to trigger the existing search filter logic
+        searchInput.dispatchEvent(new Event('input'));
+        searchInput.focus();
+    });
+
     // Press 'Escape' to close modal
     document.addEventListener('keydown', (e) => {
         const modal = document.getElementById('service-modal');
@@ -74,6 +92,26 @@ document.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }
     }
+
+    // Scroll to Top Logic
+    const topBtn = document.getElementById("scrollToTop");
+
+    // Show button when user scrolls down 300px
+    window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
+    };
+
+    // Scroll back to the top when clicked
+    topBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Adds the smooth scrolling animation
+        });
+    });
 });
 
 // 4. RENDER THE CARDS
@@ -188,3 +226,4 @@ function closeModal() {
     // Allow the background page to scroll again
     document.body.style.overflow = 'auto'; 
 }
+
