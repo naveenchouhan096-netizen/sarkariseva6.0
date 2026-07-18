@@ -142,6 +142,18 @@ function renderCards(servicesToDisplay, isAppending = false) {
         currentIndex = BATCH_SIZE; // Reset index back to 12
     }
 
+    // --- NEW RESULTS COUNTER LOGIC ---
+    const resultsCounter = document.getElementById('results-counter');
+    if (resultsCounter && !isAppending) {
+        // Check if the search box is empty to determine the text phrasing
+        if (document.getElementById('service-search').value.trim() === '') {
+            resultsCounter.innerHTML = `Showing all <strong>${servicesToDisplay.length}</strong> services`;
+        } else {
+            resultsCounter.innerHTML = `Found <strong>${servicesToDisplay.length}</strong> matching results`;
+        }
+    }
+    // ---------------------------------
+
     // EMPTY STATE UI: If the search yielded no results
     if (servicesToDisplay.length === 0) {
         grid.innerHTML = `

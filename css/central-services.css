@@ -403,3 +403,21 @@ html {
     box-sizing: border-box; /* Crucial: ensures padding doesn't add to the width */
     width: 100%;
 }
+
+/* ===================================
+   Results Counter
+=================================== */
+.results-counter {
+    text-align: center;
+    color: #6c757d; /* A professional, muted gray */
+    font-size: 14px;
+    margin-top: -10px; /* Pulls it slightly closer to the search bar */
+    margin-bottom: 30px;
+    font-weight: 500;
+    transition: opacity 0.3s ease;
+}
+
+.results-counter strong {
+    color: #0b2545; /* Dark blue to make the number pop */
+    font-weight: 700;
+}
