@@ -1,9 +1,17 @@
-// Make this variable global so our modal functions can access it
-let allServices = []; 
-let grid;
-let searchInput;
+/* ==========================================================================
+   GLOBAL VARIABLES & CONFIGURATION
+   These variables hold data that needs to be accessed by multiple functions.
+   ========================================================================== */
 
-// Array of all partitioned JSON data files
+let allServices = []; // Master array holding all the fetched service data
+let grid;             // The HTML container where cards will be drawn
+let searchInput;      // The search bar input element
+
+// Pagination configuration to prevent the browser from freezing on huge lists
+const BATCH_SIZE = 12; // Number of cards to load per click
+let currentIndex = BATCH_SIZE; // Tracks how many items are currently displayed
+
+// Array of all partitioned JSON data files (Modular Architecture)
 const jsonFiles = [
     '../data/central-services/identity-documents.json',
     '../data/central-services/finance-tax.json',
@@ -14,13 +22,17 @@ const jsonFiles = [
     '../data/central-services/safety-grievances.json'
 ];
 
-// Wait for the HTML to fully load before running the script
+/* ==========================================================================
+   INITIALIZATION (Runs when the HTML is fully loaded)
+   ========================================================================== */
 document.addEventListener('DOMContentLoaded', () => {
     
+    // 1. Grab essential DOM elements
     grid = document.getElementById('services-grid');
     searchInput = document.getElementById('service-search');
     
-    // 1. FETCH ALL DATA FILES CONCURRENTLY
+    // 2. FETCH ALL DATA FILES CONCURRENTLY
+    // Promise.all fetches all JSON files at the exact same time for maximum speed
     Promise.all(jsonFiles.map(file => 
         fetch(file).then(response => {
             if (!response.ok) throw new Error(`Network response was not ok for ${file}`);
@@ -28,8 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     ))
     .then(dataArrays => {
-        // Flatten the array of arrays into a single master array
+        // 'dataArrays' is an array of arrays. .flat() merges them into one single master list.
         allServices = dataArrays.flat(); 
+        
+        // Initial render: draws the first batch of cards
         renderCards(allServices); 
     })
     .catch(error => {
@@ -37,21 +51,41 @@ document.addEventListener('DOMContentLoaded', () => {
         grid.innerHTML = '<p style="text-align:center; color:red; grid-column: 1 / -1;">Failed to load one or more service files. Please check your data folder.</p>';
     });
 
-    // 2. SEARCH FILTERING
+    // 3. SEARCH FILTERING LOGIC
+    // Listens for every keystroke in the search bar
     searchInput.addEventListener('input', (event) => {
         const searchTerm = event.target.value.toLowerCase();
         
+        // Filter the master list based on title, description, or tags
         const filteredServices = allServices.filter(service => 
             service.title.toLowerCase().includes(searchTerm) || 
             service.shortDescription.toLowerCase().includes(searchTerm) ||
             (service.tags && service.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
         );
         
+        // Re-render the cards with only the filtered results
+        // Note: We don't pass 'true' here, so it resets the grid and starts at 12 items again.
         renderCards(filteredServices);
     });
 
-    // 3. KEYBOARD SHORTCUTS
-    // Press '/' to focus search
+    // 4. CLEAR SEARCH LOGIC (The 'X' Icon)
+    const clearBtn = document.getElementById('clear-search');
+
+    // Show or hide the 'X' icon based on whether there is text in the box
+    searchInput.addEventListener('input', () => {
+        clearBtn.style.display = searchInput.value.length > 0 ? 'block' : 'none';
+    });
+
+    // When 'X' is clicked, empty the box, hide the 'X', and re-trigger the search filter
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearBtn.style.display = 'none';
+        searchInput.dispatchEvent(new Event('input')); // Forces the filter to run on the empty string
+        searchInput.focus(); // Puts the cursor back in the box
+    });
+
+    // 5. KEYBOARD SHORTCUTS
+    // Press '/' to instantly focus the search bar
     document.addEventListener('keydown', (e) => {
         if (e.key === '/' && document.activeElement !== searchInput) {
             e.preventDefault(); 
@@ -59,25 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Search Bar icons logic
-const clearBtn = document.getElementById('clear-search');
-
-    // Show/Hide X icon based on input
-    searchInput.addEventListener('input', () => {
-        clearBtn.style.display = searchInput.value.length > 0 ? 'block' : 'none';
-    });
-
-    // Clear search when X is clicked
-    clearBtn.addEventListener('click', () => {
-        searchInput.value = '';
-        clearBtn.style.display = 'none';
-        
-        // Dispatch event to trigger the existing search filter logic
-        searchInput.dispatchEvent(new Event('input'));
-        searchInput.focus();
-    });
-
-    // Press 'Escape' to close modal
+    // Press 'Escape' to safely close the modal pop-up
     document.addEventListener('keydown', (e) => {
         const modal = document.getElementById('service-modal');
         if (e.key === 'Escape' && modal.style.display === 'flex') {
@@ -85,7 +101,7 @@ const clearBtn = document.getElementById('clear-search');
         }
     });
 
-    // Close modal if user clicks outside of the white box
+    // Close modal if the user clicks anywhere in the dark background area
     window.onclick = function(event) {
         const modal = document.getElementById('service-modal');
         if (event.target == modal) {
@@ -93,10 +109,10 @@ const clearBtn = document.getElementById('clear-search');
         }
     }
 
-    // Scroll to Top Logic
+    // 6. SCROLL TO TOP LOGIC
     const topBtn = document.getElementById("scrollToTop");
 
-    // Show button when user scrolls down 300px
+    // Show the button only after scrolling down 300 pixels
     window.onscroll = function() {
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
             topBtn.style.display = "block";
@@ -105,40 +121,56 @@ const clearBtn = document.getElementById('clear-search');
         }
     };
 
-    // Scroll back to the top when clicked
+    // Smoothly glide back to the top when clicked
     topBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Adds the smooth scrolling animation
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 });
 
-// 4. RENDER THE CARDS
-function renderCards(servicesToDisplay) {
-    grid.innerHTML = '';
+/* ==========================================================================
+   RENDER FUNCTION (Builds the UI Cards with Pagination)
+   ========================================================================== */
+/**
+ * @param {Array} servicesToDisplay - The array of service objects to render
+ * @param {boolean} isAppending - If true, adds to existing cards. If false, clears the grid first.
+ */
+function renderCards(servicesToDisplay, isAppending = false) {
+    
+    // If it's a new search or initial load, wipe the slate clean
+    if (!isAppending) {
+        grid.innerHTML = '';
+        currentIndex = BATCH_SIZE; // Reset index back to 12
+    }
 
-    // Upgraded "No Results" UI
+    // EMPTY STATE UI: If the search yielded no results
     if (servicesToDisplay.length === 0) {
         grid.innerHTML = `
             <div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px; background: #f8f9fa; border-radius: 12px; border: 2px dashed #dee2e6;">
                 <i class="fa-solid fa-magnifying-glass-minus" style="font-size: 48px; color: #adb5bd; margin-bottom: 15px;"></i>
                 <h3 style="color: #343a40; margin-bottom: 10px; font-size: 20px;">No services match your search</h3>
                 <p style="color: #6c757d; margin-bottom: 20px;">We couldn't find anything for "<strong>${document.getElementById('service-search').value}</strong>". <br>Try searching for general terms like 'Passport', 'Travel', or 'Tax'.</p>
-                <button onclick="document.getElementById('service-search').value=''; document.getElementById('service-search').dispatchEvent(new Event('input'));" class="btn-official" style="border: none; padding: 10px 24px; cursor: pointer;">
+                <button onclick="document.getElementById('clear-search').click();" class="btn-official" style="border: none; padding: 10px 24px; cursor: pointer;">
                     Clear Search
                 </button>
             </div>
         `;
-        return;
+        return; // Stop running the function here
     }
 
-    servicesToDisplay.forEach(service => {
+    // SLICE THE ARRAY: Get only the items we want to render in this specific batch
+    // If appending, start from previous index. If new load, start from 0.
+    const startIndex = isAppending ? currentIndex - BATCH_SIZE : 0;
+    const currentBatch = servicesToDisplay.slice(startIndex, currentIndex);
+
+    // Build the HTML for each card in the current batch
+    currentBatch.forEach(service => {
         const card = document.createElement('div');
         card.className = 'service-card';
         
+        // Map tags to HTML safely
         const tagsHTML = service.tags ? service.tags.map(tag => `<span class="service-tag">${tag}</span>`).join('') : '';
 
+        // Inject the data into the HTML structure
         card.innerHTML = `
             <div class="card-header">
                 <div class="icon-box"><i class="${service.icon}"></i></div>
@@ -158,15 +190,48 @@ function renderCards(servicesToDisplay) {
         
         grid.appendChild(card);
     });
+
+    // HANDLE "LOAD MORE" BUTTON
+    let loadMoreBtn = document.getElementById('load-more-btn');
+    
+    // Create the button if it doesn't exist yet
+    if (!loadMoreBtn) {
+        loadMoreBtn = document.createElement('button');
+        loadMoreBtn.id = 'load-more-btn';
+        loadMoreBtn.className = 'btn-official'; 
+        // Inline styles to center it and force it to span across all grid columns
+        loadMoreBtn.style.cssText = 'margin: 30px auto; display: block; grid-column: 1 / -1; width: fit-content; padding: 12px 40px;';
+        loadMoreBtn.innerText = 'Load More Services';
+        grid.appendChild(loadMoreBtn);
+    } else {
+        // If it already exists, move it to the very bottom of the grid
+        grid.appendChild(loadMoreBtn); 
+    }
+
+    // Update the button's click behavior to process the current list (important for filtered searches)
+    loadMoreBtn.onclick = () => {
+        currentIndex += BATCH_SIZE; // Increase the threshold by 12
+        renderCards(servicesToDisplay, true); // true = we are appending, do not clear the grid!
+    };
+
+    // Hide the button if we have displayed all available items in the list
+    if (currentIndex >= servicesToDisplay.length) {
+        loadMoreBtn.style.display = 'none';
+    } else {
+        loadMoreBtn.style.display = 'block';
+    }
 }
 
-// 5. MODAL FUNCTIONS
-function openDetails(serviceId) {
-    // Find the exact service the user clicked on
-    const service = allServices.find(s => s.id === serviceId);
-    if (!service) return;
+/* ==========================================================================
+   MODAL FUNCTIONS (Pop-up details handling)
+   ========================================================================== */
 
-    // Safely build HTML for lists (checks if array exists and has items)
+function openDetails(serviceId) {
+    // Look up the exact service data object based on the ID passed from the button click
+    const service = allServices.find(s => s.id === serviceId);
+    if (!service) return; // Failsafe
+
+    // Safely generate HTML for arrays (Steps and Documents)
     const stepsHTML = (service.stepsToApply && service.stepsToApply.length > 0) 
         ? service.stepsToApply.map(step => `<li>${step}</li>`).join('') 
         : '';
@@ -175,7 +240,7 @@ function openDetails(serviceId) {
         ? service.requiredDocuments.map(doc => `<li>${doc}</li>`).join('') 
         : '';
 
-    // Inject data using conditional rendering (Empty State Handling) & Visual Hierarchy
+    // Inject data into the modal body using Conditional Rendering (only shows blocks if data exists)
     document.getElementById('modal-body').innerHTML = `
         <h2 class="modal-title"><i class="${service.icon}" style="color:#1565ff; margin-right:10px;"></i> ${service.title}</h2>
         
@@ -213,17 +278,18 @@ function openDetails(serviceId) {
         </div>
     `;
 
-    // Show the modal
+    // Make the modal visible
     document.getElementById('service-modal').style.display = 'flex';
     
-    // Prevent the background page from scrolling while modal is open
+    // Freeze the background page so the user can only scroll within the modal
     document.body.style.overflow = 'hidden'; 
 }
 
 function closeModal() {
+    // Hide the modal
     document.getElementById('service-modal').style.display = 'none';
     
-    // Allow the background page to scroll again
+    // Un-freeze the background page
     document.body.style.overflow = 'auto'; 
 }
 
