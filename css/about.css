@@ -382,3 +382,294 @@
     color: #555;
     line-height: 1.6;
 }
+
+/* the latest css of aboutus */
+/* ==========================================================================
+   1. GLOBAL STYLES & VARIABLES
+   ========================================================================== */
+:root {
+    --primary-color: #003366;    /* Deep Government Blue */
+    --secondary-color: #ff9933;  /* Vibrant Saffron Accent */
+    --text-dark: #222222;
+    --text-light: #666666;
+    --bg-light: #f8fafc;
+    --white: #ffffff;
+    --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --transition: all 0.3s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* ==========================================================================
+   2. HERO SECTION
+   ========================================================================== */
+.about-hero {
+    background: linear-gradient(135deg, rgba(0, 51, 102, 0.95), rgba(0, 20, 40, 0.9)), 
+                url('../assets/images/hero/hero-bg.jpg') no-repeat center center/cover;
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--white);
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    color: #e2e8f0;
+    font-weight: 300;
+}
+
+/* ==========================================================================
+   3. MISSION & VISION
+   ========================================================================== */
+.about-mission {
+    padding-bottom: 30px;
+}
+
+.mission-box {
+    background: var(--white);
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    border-left: 5px solid var(--secondary-color);
+    text-align: center;
+}
+
+.mission-box h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.mission-box p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   4. KEY FEATURES SECTION
+   ========================================================================== */
+.about-features {
+    text-align: center;
+}
+
+.about-features h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.about-features h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: var(--white);
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    border-top: 4px solid transparent;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    border-top-color: var(--primary-color);
+}
+
+.feature-card h3 {
+    color: var(--primary-color);
+    font-size: 1.35rem;
+    margin-bottom: 15px;
+}
+
+.feature-card p {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   5. DEVELOPER SECTION (Premium Minimal Layout)
+   ========================================================================== */
+.about-developer {
+    background-color: var(--white);
+    border-radius: 16px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+    box-shadow: var(--card-shadow);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    position: relative;
+}
+
+.section-header h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--secondary-color);
+    margin: 10px auto 0;
+}
+
+.developer-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px 20px;
+    justify-items: center;
+}
+
+.dev-item {
+    text-align: center;
+    transition: var(--transition);
+    width: 100%;
+    max-width: 280px;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.dev-item:hover {
+    background-color: var(--bg-light);
+    transform: translateY(-5px);
+}
+
+.img-circle-wrapper {
+    width: 140px;
+    height: 140px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dev-img-circle {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: #fff;
+    display: block;
+}
+
+.dev-name {
+    color: var(--text-dark);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.dev-work {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   6. CALL TO ACTION (CTA)
+   ========================================================================== */
+.about-cta {
+    background: linear-gradient(135deg, var(--primary-color), #002244);
+    color: var(--white);
+    text-align: center;
+    padding: 60px 20px;
+    margin-top: 40px;
+}
+
+.about-cta h2 {
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+    font-weight: 400;
+}
+
+.btn-primary {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    padding: 12px 35px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(255, 153, 51, 0.4);
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: #e0882c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 153, 51, 0.6);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.2rem;
+    }
+    
+    .container {
+        padding: 40px 15px;
+    }
+    
+    .developer-row {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px 15px;
+    }
+    
+    .img-circle-wrapper {
+        width: 120px;
+        height: 120px;
+    }
+}
